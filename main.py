@@ -1,8 +1,9 @@
 import random
 from pprint import pprint
 
+
 def getInputText(path):
-    with open(path) as f:
+    with open(path, encoding="utf-8") as f:
         txt = f.read()
     return txt
 
@@ -13,16 +14,18 @@ def markovChainChar(order):
     # Model creation
     for i in range(len(text)-order):
         currentNgram = text[i:i+order]
-        if currentNgram not in ngrams:
-            ngrams[currentNgram] = [text[i+order]]
-        else:
-            ngrams[currentNgram].append(text[i+order])
+        if text[i+order] != '\n':
+            if currentNgram not in ngrams:
+                ngrams[currentNgram] = [text[i+order]]
+            else:
+                ngrams[currentNgram].append(text[i+order])
 
     pprint(ngrams)
 
     # Text generation
     length = 100
-    text = random.choice(list(ngrams))
+    # text = random.choice(list(ngrams))
+    text = text[:order]
     for i in range(length):
         if text[i:i+order] not in ngrams:
             break
@@ -30,15 +33,26 @@ def markovChainChar(order):
         text += nextChar
     print(text)
 
+
+def textCleaner(path):
+    text = getInputText(path)
+    for index, char in enumerate(text):
+        print(index, char)
+        if index+1 < len(text):
+            if char in '.:,;?!' and text[index+1] != '\n':
+                text = text[index:] + '\n' + text[:index]
+    return text
+
+
 def findCursorWord(cursor, text):
     i = cursor
     endText = False
-    while text[i] != ' ':
+    while text[i] != ' ' and not endText:
         i += 1
-        if i + 1 > len(text):
+        if i + 1 >= len(text):
             endText = True
-
     return cursor, i, endText
+
 
 def markovChainWord():
     text = getInputText('input_text.txt')
@@ -46,7 +60,7 @@ def markovChainWord():
 
     cursor = 0
     endText = False
-    while cursor < len(text):
+    while not endText:
         cursor, i, endText = findCursorWord(cursor, text)
         if not endText:
             currentWord = text[cursor:i]
@@ -55,8 +69,11 @@ def markovChainWord():
             nextWord = text[cursor:i]
             if currentWord not in words:
                 words[currentWord] = [nextWord]
-            print(currentWord)
+            # print(currentWord)
+    # pprint(words)
 
 
 if __name__ == '__main__':
-    markovChainWord()
+    print(textCleaner('input_text.txt'))
+    # markovChainWord()
+    # markovChainChar(4)

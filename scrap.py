@@ -13,7 +13,15 @@ if __name__ == '__main__':
     page = requests.get(url, cookies={'CONSENT': 'YES+1'})
 
     soup = BeautifulSoup(page.content, 'html.parser')
-
     print(soup)
-    # titles = soup.find('a', class_='yt-simple-endpoint style-scope ytd-grid-video-renderer')
+    res = soup.find_all('script')
+    res = str(res[34])
 
+    dictString = res.split('var ytInitialData =')
+    dictString = dictString[1][:-10]
+    # print(dictString)
+    cursor = dictString.find('Vidéos')
+    cursor += 34
+    # JsonText = J3[0].decode('utf-8')
+    #
+    # s = json.loads(JsonText)
