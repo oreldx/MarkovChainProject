@@ -23,9 +23,9 @@ def markovChainChar(order):
     pprint(ngrams)
 
     # Text generation
-    length = 100
-    # text = random.choice(list(ngrams))
-    text = text[:order]
+    length = 300
+    text = random.choice(list(ngrams))
+    # text = text[:order]
     for i in range(length):
         if text[i:i+order] not in ngrams:
             break
@@ -74,6 +74,6 @@ def markovChainWord():
 
 
 if __name__ == '__main__':
-    print(textCleaner('input_text.txt'))
+    # print(textCleaner('input_text.txt'))
     # markovChainWord()
-    # markovChainChar(4)
+    markovChainChar(7)
