@@ -1,37 +1,25 @@
 import scrapetube
-import re
 import io
 
 
-def remove_emojis(data):
-    emoj = re.compile("["
-        u"\U0001F600-\U0001F64F"  # emoticons
-        u"\U0001F300-\U0001F5FF"  # symbols & pictographs
-        u"\U0001F680-\U0001F6FF"  # transport & map symbols
-        u"\U0001F1E0-\U0001F1FF"  # flags (iOS)
-        u"\U00002500-\U00002BEF"  # chinese char
-        u"\U00002702-\U000027B0"
-        u"\U00002702-\U000027B0"
-        u"\U000024C2-\U0001F251"
-        u"\U0001f926-\U0001f937"
-        u"\U00010000-\U0010ffff"
-        u"\u2640-\u2642" 
-        u"\u2600-\u2B55"
-        u"\u200d"
-        u"\u23cf"
-        u"\u23e9"
-        u"\u231a"
-        u"\ufe0f"  # dingbats
-        u"\u3030"
-                      "]+", re.UNICODE)
-    return re.sub(emoj, '', data)
+def scrapTitleChannel(idChannel, filePath):
+    videos = scrapetube.get_channel(idChannel)
+    with io.open(filePath, 'a', encoding='utf-8') as file:
+        for video in videos:
+            title = video['title']['runs'][0]['text']
+            file.write(title + '\n')
+
+
+def scrap():
+    channelsID = [
+        'UCkcvvd77UoEXC-ahAkP4k8g',
+        'UCoNvmftvPAAlozI-DTUrAng',
+        'UCsM_9eGMTnp9AJVxroLlWkg'
+    ]
+    for channelID in channelsID:
+        scrapTitleChannel(channelID, 'data/titles.txt')
 
 
 if __name__ == '__main__':
-
-    videos = scrapetube.get_channel("UCow2IGnug1l3Xazkrc5jM_Q")
-    with io.open('titles.txt', 'w', encoding='utf-8') as file:
-        for video in videos:
-            title = video['title']['runs'][0]['text']
-            title = remove_emojis(title)
-            file.write(title+'\n')
+    # scrapTitleChannel("UCkcvvd77UoEXC-ahAkP4k8g", 'test.txt')
+    scrap()
