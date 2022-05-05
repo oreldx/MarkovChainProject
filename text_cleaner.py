@@ -19,4 +19,4 @@ def textCleaning(pathInput, pathOutput):
 
 
 if __name__ == '__main__':
-    textCleaning('data/titles.txt', 'data/titlesCleaned.txt')
+    textCleaning('data/titlesRaw.txt', 'data/titlesCleaned.txt')

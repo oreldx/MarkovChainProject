@@ -17,7 +17,7 @@ def scrap():
         'UCsM_9eGMTnp9AJVxroLlWkg'
     ]
     for channelID in channelsID:
-        scrapTitleChannel(channelID, 'data/titles.txt')
+        scrapTitleChannel(channelID, 'data/titlesRaw.txt')
 
 
 if __name__ == '__main__':
