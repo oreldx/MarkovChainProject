@@ -27,14 +27,13 @@ def markovChainWord(textSample):
                         words[backWord] = [currentWord]
                     else:
                         words[backWord].append(currentWord)
-    pprint(words)
+    # pprint(words)
 
     # Text generation
     length = 100
     titleGenerated = random.choice(list(words))
     nextWord = titleGenerated
     while len(titleGenerated) < length:
-        print(nextWord)
         if nextWord not in words:
             break
         nextWord = random.choice(words[nextWord])

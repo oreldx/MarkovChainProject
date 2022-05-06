@@ -12,9 +12,12 @@ def scrapTitleChannel(idChannel, filePath):
 
 def scrap():
     channelsID = [
-        'UCkcvvd77UoEXC-ahAkP4k8g',
-        'UCoNvmftvPAAlozI-DTUrAng',
-        'UCsM_9eGMTnp9AJVxroLlWkg'
+        'UCkcvvd77UoEXC-ahAkP4k8g',     # Clips Twitch FR
+        'UCoNvmftvPAAlozI-DTUrAng',     # Kameto Clips
+        'UCsM_9eGMTnp9AJVxroLlWkg',     # UnKlear
+        'UC02p1BPKTwblBvzx44x2FBw',     # Clip Twitch FR
+        'UCIm7Ax5krWWYRmsgOYheyIw',     # Clips - Twitch FR
+        'UCNYi0rhUh_rk3dROGQGPrIQ',     # Twitch FR Clips
     ]
     for channelID in channelsID:
         scrapTitleChannel(channelID, 'data/titlesRaw.txt')
